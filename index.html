@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -402,6 +402,20 @@
         transition-duration: 0.01ms !important;
       }
       html { scroll-behavior: auto; }
+      .glass-card,
+      .caption-block,
+      .closing-glass {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    /* Fallback: show content if JavaScript fails to load */
+    html.no-js .glass-card,
+    html.no-js .caption-block,
+    html.no-js .closing-glass {
+      opacity: 1;
+      transform: none;
     }
   </style>
 </head>
@@ -453,7 +467,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame contain">
-            <img src="./photos/28.jpeg" alt="Safeha first handwritten letter" loading="lazy">
+            <img src="/photos/28.jpeg" alt="Safeha first handwritten letter" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -469,7 +483,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame rotate-cw">
-            <img src="./photos/10.jpeg" alt="Happy moment" loading="lazy">
+            <img src="/photos/10.jpeg" alt="Happy moment" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -485,7 +499,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame portrait">
-            <img src="./photos/8.jpeg" alt="Night walk together" loading="lazy">
+            <img src="/photos/8.jpeg" alt="Night walk together" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -501,14 +515,14 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame">
-            <img src="./photos/9.jpeg" alt="Smiling together" loading="lazy">
+            <img src="/photos/9.jpeg" alt="Smiling together" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
           <p class="memory-number">Memory 04</p>
           <h2>That smile</h2>
           <p>Your smile is the reason I believe in beautiful things. I'd cross any distance just to see it again.</p>
-          <span class="islamic-line">The Prophet &mdash; said a smile is charity &mdash; and yours, Pondati, is the greatest sadaqah I receive.</span>
+          <span class="islamic-line">The Prophet (peace be upon him) said a smile is charity &mdash; and yours, Pondati, is the greatest sadaqah I receive.</span>
         </div>
       </div>
     </section>
@@ -517,7 +531,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame square">
-            <img src="./photos/5.jpeg" alt="Couple in the park" loading="lazy">
+            <img src="/photos/5.jpeg" alt="Couple in the park" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -533,7 +547,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame">
-            <img src="./photos/11.jpeg" alt="Another beautiful memory" loading="lazy">
+            <img src="/photos/11.jpeg" alt="Another beautiful memory" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -549,7 +563,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame">
-            <img src="./photos/13.jpeg" alt="Sweet memory" loading="lazy">
+            <img src="/photos/13.jpeg" alt="Sweet memory" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -565,7 +579,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame">
-            <img src="./photos/14.jpeg" alt="Candid moment" loading="lazy">
+            <img src="/photos/14.jpeg" alt="Candid moment" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -581,7 +595,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame">
-            <img src="./photos/6.jpeg" alt="Together outdoors" loading="lazy">
+            <img src="/photos/6.jpeg" alt="Together outdoors" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -597,7 +611,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame portrait">
-            <img src="./photos/1.jpeg" alt="Love note written on arm" loading="lazy">
+            <img src="/photos/1.jpeg" alt="Love note written on arm" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -613,7 +627,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame portrait">
-            <img src="./photos/3.jpeg" alt="A sweet moment" loading="lazy">
+            <img src="/photos/3.jpeg" alt="A sweet moment" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -629,7 +643,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame">
-            <img src="./photos/2.jpeg" alt="Names written together" loading="lazy">
+            <img src="/photos/2.jpeg" alt="Names written together" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -645,7 +659,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame portrait">
-            <img src="./photos/4.jpeg" alt="Safeha and Sohail with a heart" loading="lazy">
+            <img src="/photos/4.jpeg" alt="Safeha and Sohail with a heart" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -661,7 +675,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame">
-            <img src="./photos/7.jpeg" alt="A cherished moment" loading="lazy">
+            <img src="/photos/7.jpeg" alt="A cherished moment" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -677,7 +691,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame portrait">
-            <img src="./photos/12.jpeg" alt="Adventure together" loading="lazy">
+            <img src="/photos/12.jpeg" alt="Adventure together" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -693,7 +707,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame">
-            <img src="./photos/15.jpeg" alt="Street selfie May 2026" loading="lazy">
+            <img src="/photos/15.jpeg" alt="Street selfie May 2026" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -709,7 +723,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame">
-            <img src="./photos/16.jpeg" alt="Together always" loading="lazy">
+            <img src="/photos/16.jpeg" alt="Together always" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -725,7 +739,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame">
-            <img src="./photos/17.jpeg" alt="Shared laughter" loading="lazy">
+            <img src="/photos/17.jpeg" alt="Shared laughter" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -741,7 +755,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame">
-            <img src="./photos/18.jpeg" alt="Beautiful together" loading="lazy">
+            <img src="/photos/18.jpeg" alt="Beautiful together" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -757,7 +771,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame">
-            <img src="./photos/19.jpeg" alt="On the road together" loading="lazy">
+            <img src="/photos/19.jpeg" alt="On the road together" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -773,7 +787,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame">
-            <img src="./photos/20.jpeg" alt="Another treasured moment" loading="lazy">
+            <img src="/photos/20.jpeg" alt="Another treasured moment" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -789,7 +803,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame">
-            <img src="./photos/21.jpeg" alt="Travelling together" loading="lazy">
+            <img src="/photos/21.jpeg" alt="Travelling together" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -805,7 +819,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame contain">
-            <img src="./photos/22.jpeg" alt="Instagram chat &mdash; promise" loading="lazy">
+            <img src="/photos/22.jpeg" alt="Instagram chat &mdash; promise" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -821,7 +835,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame contain">
-            <img src="./photos/23.jpeg" alt="Birthday gift messages" loading="lazy">
+            <img src="/photos/23.jpeg" alt="Birthday gift messages" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -837,7 +851,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame contain">
-            <img src="./photos/24.jpeg" alt="Sweet Tamil chat" loading="lazy">
+            <img src="/photos/24.jpeg" alt="Sweet Tamil chat" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -853,7 +867,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame portrait">
-            <img src="./photos/25.jpeg" alt="Safeha as a child" loading="lazy">
+            <img src="/photos/25.jpeg" alt="Safeha as a child" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -869,7 +883,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame portrait">
-            <img src="./photos/26.jpeg" alt="Moon phases" loading="lazy">
+            <img src="/photos/26.jpeg" alt="Moon phases" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -885,7 +899,7 @@
       <div class="story-inner">
         <div class="glass-card">
           <div class="photo-frame portrait">
-            <img src="./photos/27.jpeg" alt="Hands held together" loading="lazy">
+            <img src="/photos/27.jpeg" alt="Hands held together" loading="lazy">
           </div>
         </div>
         <div class="caption-block">
@@ -919,7 +933,9 @@
   </footer>
 
   <script>
-    /* ?? Floating hearts in background ?? */
+    document.documentElement.classList.remove('no-js');
+
+    /* Floating hearts in background */
     (function initHearts() {
       const layer = document.getElementById('bg-layer');
       const hearts = ['\u2665', '\u2661', '\u2764', '\u2726'];
@@ -941,7 +957,7 @@
       function update() {
         const scrollTop = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const pct = docHeight > 0 &mdash; scrollTop / docHeight : 0;
+        const pct = docHeight > 0 ? scrollTop / docHeight : 0;
         fill.style.clipPath = `inset(${100 - pct * 100}% 0 0 0)`;
       }
       window.addEventListener('scroll', update, { passive: true });
@@ -964,6 +980,15 @@
       }, { threshold: 0.25, rootMargin: '0px 0px -8% 0px' });
 
       document.querySelectorAll('.photo-section').forEach(s => observer.observe(s));
+
+      // Reveal sections already in view on load
+      document.querySelectorAll('.photo-section').forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.85 && rect.bottom > 0) {
+          section.querySelector('.glass-card')?.classList.add('visible');
+          section.querySelector('.caption-block')?.classList.add('visible');
+        }
+      });
 
       const closingObs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
