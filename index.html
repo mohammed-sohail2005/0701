@@ -417,6 +417,77 @@
       opacity: 1;
       transform: none;
     }
+
+    /* Thread of Fate SVG Line */
+    .fate-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: visible;
+    }
+    #fate-path {
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 6px rgba(248, 180, 212, 0.45));
+    }
+
+    /* Floating Music Player */
+    .music-player {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      z-index: 1000;
+    }
+    .music-btn {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--blush);
+      font-size: 1.1rem;
+      box-shadow: var(--glass-shadow);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      outline: none;
+    }
+    .music-btn:hover {
+      transform: scale(1.1);
+      border-color: rgba(248, 180, 212, 0.6);
+      box-shadow: 0 0 15px rgba(224, 86, 160, 0.4), var(--glass-shadow);
+      color: var(--text-light);
+    }
+    .music-icon {
+      transition: transform 0.2s ease;
+    }
+    .music-pulse {
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      border: 2px solid var(--magenta);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .music-player.playing .music-pulse {
+      animation: musicRipple 1.6s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+    }
+    @keyframes musicRipple {
+      0% { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+    @media (max-width: 600px) {
+      .music-player { bottom: 1rem; left: 1rem; }
+      .music-btn { width: 44px; height: 44px; font-size: 0.95rem; }
+    }
   </style>
 </head>
 <body>
@@ -443,6 +514,25 @@
   </div>
 
   <canvas id="confetti-canvas"></canvas>
+
+  <!-- Thread of Fate SVG Line -->
+  <svg class="fate-container" aria-hidden="true">
+    <defs>
+      <linearGradient id="fate-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#f8b4d4" />
+        <stop offset="50%" stop-color="#c4a8e8" />
+        <stop offset="100%" stop-color="#e056a0" />
+      </linearGradient>
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    <path id="fate-path" fill="none" stroke="url(#fate-gradient)" stroke-width="3" filter="url(#glow)"/>
+  </svg>
 
   <!-- Hero -->
   <header class="hero">
@@ -932,6 +1022,16 @@
     </div>
   </footer>
 
+  <!-- Floating Music Player -->
+  <div class="music-player" id="music-player">
+    <button class="music-btn" id="music-btn" aria-label="Toggle music">
+      <span class="music-icon play-icon">&#9658;</span>
+      <span class="music-icon pause-icon" style="display: none;">&#10074;&#10074;</span>
+      <span class="music-pulse"></span>
+    </button>
+    <audio id="bg-melody" loop src="https://archive.org/download/Classical_Sampler-9615/Gymnopedie%20No%201.mp3"></audio>
+  </div>
+
   <script>
     document.documentElement.classList.remove('no-js');
 
@@ -1108,6 +1208,166 @@
         });
       });
     }
+
+    /* ?? Responsive Thread of Fate SVG Line ?? */
+    (function initFateLine() {
+      const path = document.getElementById('fate-path');
+      const story = document.getElementById('story');
+      if (!path || !story) return;
+
+      function updatePath() {
+        const sections = Array.from(document.querySelectorAll('.photo-section'));
+        if (sections.length === 0) return;
+
+        const isMobile = window.innerWidth <= 768;
+        const pageHeight = document.documentElement.scrollHeight;
+        const svgContainer = path.parentElement;
+        svgContainer.setAttribute('viewBox', `0 0 ${window.innerWidth} ${pageHeight}`);
+        svgContainer.style.height = pageHeight + 'px';
+
+        let points = [];
+        
+        // Start from center of hero section
+        const hero = document.querySelector('.hero');
+        if (hero) {
+          const heroRect = hero.getBoundingClientRect();
+          const startY = window.scrollY + heroRect.top + heroRect.height / 2;
+          points.push({ x: window.innerWidth / 2, y: startY });
+        } else {
+          points.push({ x: window.innerWidth / 2, y: 300 });
+        }
+
+        // Add coordinates for each section card
+        sections.forEach((sec, idx) => {
+          const card = sec.querySelector('.glass-card');
+          if (!card) return;
+
+          const cardRect = card.getBoundingClientRect();
+          const cardX = window.scrollX + cardRect.left;
+          const cardY = window.scrollY + cardRect.top;
+          const cardWidth = cardRect.width;
+          const cardHeight = cardRect.height;
+
+          // Connect to either left, right, or center depending on layout
+          let x, y;
+          if (isMobile) {
+            // Mobile: trace down the center of cards
+            x = cardX + cardWidth / 2;
+            y = cardY + cardHeight / 2;
+          } else {
+            // Desktop: alternate left/right edges of cards to create a zigzag weave
+            const isEven = idx % 2 === 0;
+            x = isEven ? (cardX - 40) : (cardX + cardWidth + 40);
+            y = cardY + cardHeight / 2;
+          }
+          points.push({ x, y });
+        });
+
+        // End at the beginning of the closing letter
+        const closing = document.getElementById('closing');
+        if (closing) {
+          const closingRect = closing.getBoundingClientRect();
+          const endY = window.scrollY + closingRect.top + 80;
+          points.push({ x: window.innerWidth / 2, y: endY });
+        } else {
+          points.push({ x: window.innerWidth / 2, y: pageHeight - 300 });
+        }
+
+        // Build SVG Bezier Path String
+        if (points.length < 2) return;
+        let d = `M ${points[0].x} ${points[0].y}`;
+        for (let i = 1; i < points.length; i++) {
+          const p0 = points[i - 1];
+          const p1 = points[i];
+          // Use cubic bezier to weave smoothly
+          const cpY1 = p0.y + (p1.y - p0.y) / 2;
+          const cpY2 = p0.y + (p1.y - p0.y) / 2;
+          d += ` C ${p0.x} ${cpY1}, ${p1.x} ${cpY2}, ${p1.x} ${p1.y}`;
+        }
+
+        path.setAttribute('d', d);
+
+        // Update stroke animation parameters
+        const pathLength = path.getTotalLength();
+        path.style.strokeDasharray = pathLength;
+        
+        // Initial offset
+        updateOffset();
+      }
+
+      function updateOffset() {
+        const pathLength = path.getTotalLength();
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? scrollTop / docHeight : 0;
+        
+        // Draw path scroll synchronised (from 100% hidden to fully visible)
+        path.style.strokeDashoffset = pathLength - (pct * pathLength);
+      }
+
+      // Run on load, resize, and scroll
+      window.addEventListener('load', updatePath);
+      window.addEventListener('resize', updatePath);
+      window.addEventListener('scroll', updateOffset, { passive: true });
+
+      // Run immediately in case window load fired
+      setTimeout(updatePath, 500);
+    })();
+
+    /* ?? Audio controller logic ?? */
+    (function initAudio() {
+      const audio = document.getElementById('bg-melody');
+      const btn = document.getElementById('music-btn');
+      const player = document.getElementById('music-player');
+      const playIcon = btn.querySelector('.play-icon');
+      const pauseIcon = btn.querySelector('.pause-icon');
+
+      if (!audio || !btn || !player) return;
+
+      function togglePlay() {
+        if (audio.paused) {
+          audio.play().then(() => {
+            player.classList.add('playing');
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+          }).catch(err => {
+            console.log("Audio play failed: ", err);
+          });
+        } else {
+          audio.pause();
+          player.classList.remove('playing');
+          playIcon.style.display = 'block';
+          pauseIcon.style.display = 'none';
+        }
+      }
+
+      btn.addEventListener('click', togglePlay);
+
+      // Autoplay handler on first user interaction
+      let hasInteracted = false;
+      function autoPlayOnInteraction() {
+        if (hasInteracted) return;
+        hasInteracted = true;
+        
+        audio.play().then(() => {
+          player.classList.add('playing');
+          playIcon.style.display = 'none';
+          pauseIcon.style.display = 'block';
+        }).catch(err => {
+          // Playback blocked, wait for manual click
+          console.log("Autoplay blocked: user must click play button manually.", err);
+        });
+
+        // Clean up listeners
+        window.removeEventListener('click', autoPlayOnInteraction);
+        window.removeEventListener('scroll', autoPlayOnInteraction);
+        window.removeEventListener('touchstart', autoPlayOnInteraction);
+      }
+
+      window.addEventListener('click', autoPlayOnInteraction);
+      window.addEventListener('scroll', autoPlayOnInteraction, { passive: true });
+      window.addEventListener('touchstart', autoPlayOnInteraction, { passive: true });
+    })();
   </script>
 </body>
 </html>
