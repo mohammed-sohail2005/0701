@@ -190,68 +190,141 @@
 
     .glass-card {
       position: relative;
-      background: var(--glass-bg);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid var(--glass-border);
-      border-radius: 1.5rem;
-      padding: 0.75rem;
-      box-shadow: var(--glass-shadow);
+      perspective: 1200px;
       flex: 1 1 340px;
       max-width: 520px;
-      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
-                  box-shadow 0.5s ease,
-                  border-color 0.5s ease;
-      transform-style: preserve-3d;
+      width: 100%;
+      height: 480px;
       opacity: 0;
       transform: translateY(60px) scale(0.96);
+      transition: transform 0.9s cubic-bezier(0.23, 1, 0.32, 1),
+                  opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    @media (max-width: 768px) {
+      .glass-card {
+        height: 420px;
+      }
     }
     .glass-card.visible {
       opacity: 1;
       transform: translateY(0) scale(1);
-      transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1),
-                  transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-    .glass-card:hover {
-      transform: translateY(-6px) scale(1.02) rotateX(2deg) rotateY(-2deg);
-      box-shadow: 0 16px 48px rgba(224, 86, 160, 0.25), var(--glass-shadow);
-      border-color: rgba(248, 180, 212, 0.45);
-    }
-    .glass-card.visible:hover {
-      transform: translateY(-6px) scale(1.02) rotateX(2deg) rotateY(-2deg);
     }
 
-    .photo-frame {
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .glass-card:hover .card-inner,
+    .glass-card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front,
+    .card-back {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 1.5rem;
+      box-shadow: var(--glass-shadow);
+      border: 1px solid var(--glass-border);
+    }
+
+    .card-front {
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding: 0.75rem;
+      padding-bottom: 3.5rem;
+      display: flex;
+      flex-direction: column;
+      transform: rotateY(0deg);
+    }
+
+    .card-front .photo-frame {
+      width: 100%;
+      height: 100%;
       border-radius: 1.1rem;
       overflow: hidden;
-      aspect-ratio: 4 / 3;
       background: rgba(0, 0, 0, 0.2);
+      aspect-ratio: auto !important;
+      max-height: none !important;
     }
-    .photo-frame img {
+
+    .card-front .photo-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
       transition: transform 0.6s ease;
     }
-    .glass-card:hover .photo-frame img { transform: scale(1.06); }
-
-    .photo-frame.portrait { aspect-ratio: 3 / 4; }
-    .photo-frame.square   { aspect-ratio: 1 / 1; }
-
-    /* Chat screenshots & tall photos &mdash; show full image */
-    .photo-frame.contain {
-      aspect-ratio: 9 / 16;
-      max-height: min(72vh, 640px);
-      background: rgba(0, 0, 0, 0.25);
-    }
-    .photo-frame.contain img {
-      object-fit: contain;
+    .glass-card:hover .card-front .photo-frame img {
+      transform: scale(1.04);
     }
 
-    /* Fix sideways photos (rotate 90? clockwise) */
+    .polaroid-caption {
+      position: absolute;
+      bottom: 0.85rem;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--blush);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-back {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(248, 180, 212, 0.35);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transform: rotateY(180deg);
+    }
+    .card-back::before {
+      content: '';
+      position: absolute;
+      inset: 0.75rem;
+      border: 1px dashed rgba(248, 180, 212, 0.25);
+      border-radius: 1.1rem;
+      pointer-events: none;
+    }
+
+    .love-note-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: var(--blush);
+      margin-bottom: 1rem;
+    }
+    .love-note-content {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--text-light);
+      max-width: 90%;
+    }
+    .love-note-heart {
+      font-size: 1.5rem;
+      color: var(--magenta);
+      margin-top: 1rem;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    /* Fix sideways photos (rotate 90 deg clockwise) */
     .photo-frame.rotate-cw {
-      aspect-ratio: 3 / 4;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -264,7 +337,7 @@
       object-fit: cover;
     }
     .glass-card:hover .photo-frame.rotate-cw img {
-      transform: rotate(-90deg) scale(1.06);
+      transform: rotate(-90deg) scale(1.04);
     }
 
     .caption-block {
@@ -556,8 +629,18 @@
     <section class="photo-section" data-memory="1">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame contain">
-            <img src="/photos/28.jpeg" alt="Safeha first handwritten letter" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame contain">
+                <img src="/photos/28.jpeg" alt="Safeha first handwritten letter" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 01</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">I still read this letter whenever I miss you. It's the most precious paper I own.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -572,8 +655,18 @@
     <section class="photo-section" data-memory="2">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame rotate-cw">
-            <img src="/photos/10.jpeg" alt="Happy moment" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame rotate-cw">
+                <img src="/photos/10.jpeg" alt="Happy moment" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 02</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">Your happiness is my daily prayer, Pondati.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -588,8 +681,18 @@
     <section class="photo-section" data-memory="3">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame portrait">
-            <img src="/photos/8.jpeg" alt="Night walk together" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame portrait">
+                <img src="/photos/8.jpeg" alt="Night walk together" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 03</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">No matter how dark the night, you are the light in my life.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -604,8 +707,18 @@
     <section class="photo-section" data-memory="4">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame">
-            <img src="/photos/9.jpeg" alt="Smiling together" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame">
+                <img src="/photos/9.jpeg" alt="Smiling together" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 04</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">I pray to Allah to protect your smile from every evil eye.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -620,8 +733,18 @@
     <section class="photo-section" data-memory="5">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame square">
-            <img src="/photos/5.jpeg" alt="Couple in the park" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame square">
+                <img src="/photos/5.jpeg" alt="Couple in the park" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 05</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">Being close to you is the safest place in the world.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -636,8 +759,18 @@
     <section class="photo-section" data-memory="6">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame">
-            <img src="/photos/11.jpeg" alt="Another beautiful memory" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame">
+                <img src="/photos/11.jpeg" alt="Another beautiful memory" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 06</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">I want to write an infinite number of chapters with you.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -652,8 +785,18 @@
     <section class="photo-section" data-memory="7">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame">
-            <img src="/photos/13.jpeg" alt="Sweet memory" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame">
+                <img src="/photos/13.jpeg" alt="Sweet memory" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 07</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">Your pure laughter is the sweetest music to my ears.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -668,8 +811,18 @@
     <section class="photo-section" data-memory="8">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame">
-            <img src="/photos/14.jpeg" alt="Candid moment" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame">
+                <img src="/photos/14.jpeg" alt="Candid moment" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 08</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">Even when you aren't looking, I am looking at you with love.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -684,8 +837,18 @@
     <section class="photo-section" data-memory="9">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame">
-            <img src="/photos/6.jpeg" alt="Together outdoors" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame">
+                <img src="/photos/6.jpeg" alt="Together outdoors" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 09</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">InshaAllah, we will walk side by side all the way to Jannah.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -700,8 +863,18 @@
     <section class="photo-section" data-memory="10">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame portrait">
-            <img src="/photos/1.jpeg" alt="Love note written on arm" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame portrait">
+                <img src="/photos/1.jpeg" alt="Love note written on arm" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 10</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">You are written in my heart, my soul, and my destiny.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -716,8 +889,18 @@
     <section class="photo-section" data-memory="11">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame portrait">
-            <img src="/photos/3.jpeg" alt="A sweet moment" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame portrait">
+                <img src="/photos/3.jpeg" alt="A sweet moment" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 11</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">Every little second with you adds up to a lifetime of happiness.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -732,8 +915,18 @@
     <section class="photo-section" data-memory="12">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame">
-            <img src="/photos/2.jpeg" alt="Names written together" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame">
+                <img src="/photos/2.jpeg" alt="Names written together" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 12</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">Designed by the Best of Planners to be together forever.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -748,8 +941,18 @@
     <section class="photo-section" data-memory="13">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame portrait">
-            <img src="/photos/4.jpeg" alt="Safeha and Sohail with a heart" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame portrait">
+                <img src="/photos/4.jpeg" alt="Safeha and Sohail with a heart" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 13</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">Two hearts, one beat, bound by halal love.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -764,8 +967,18 @@
     <section class="photo-section" data-memory="14">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame">
-            <img src="/photos/7.jpeg" alt="A cherished moment" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame">
+                <img src="/photos/7.jpeg" alt="A cherished moment" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 14</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">When I am with you, the rest of the world fades away.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -780,8 +993,18 @@
     <section class="photo-section" data-memory="15">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame portrait">
-            <img src="/photos/12.jpeg" alt="Adventure together" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame portrait">
+                <img src="/photos/12.jpeg" alt="Adventure together" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 15</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">Every journey is a blessing because you are my companion.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -796,8 +1019,18 @@
     <section class="photo-section" data-memory="16">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame">
-            <img src="/photos/15.jpeg" alt="Street selfie May 2026" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame">
+                <img src="/photos/15.jpeg" alt="Street selfie May 2026" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 16</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">One of the best days of my life, captured in one perfect smile.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -812,8 +1045,18 @@
     <section class="photo-section" data-memory="17">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame">
-            <img src="/photos/16.jpeg" alt="Together always" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame">
+                <img src="/photos/16.jpeg" alt="Together always" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 17</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">My love for you grows with every breath I take.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -828,8 +1071,18 @@
     <section class="photo-section" data-memory="18">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame">
-            <img src="/photos/17.jpeg" alt="Shared laughter" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame">
+                <img src="/photos/17.jpeg" alt="Shared laughter" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 18</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">May your life be filled with endless reasons to laugh.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -844,8 +1097,18 @@
     <section class="photo-section" data-memory="19">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame">
-            <img src="/photos/18.jpeg" alt="Beautiful together" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame">
+                <img src="/photos/18.jpeg" alt="Beautiful together" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 19</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">I could look at you forever and never get tired.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -860,8 +1123,18 @@
     <section class="photo-section" data-memory="20">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame">
-            <img src="/photos/19.jpeg" alt="On the road together" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame">
+                <img src="/photos/19.jpeg" alt="On the road together" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 20</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">Any destination is perfect as long as we travel together.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -876,8 +1149,18 @@
     <section class="photo-section" data-memory="21">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame">
-            <img src="/photos/20.jpeg" alt="Another treasured moment" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame">
+                <img src="/photos/20.jpeg" alt="Another treasured moment" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 21</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">Looking forward to a lifetime of beautiful memories with you.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -892,8 +1175,18 @@
     <section class="photo-section" data-memory="22">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame">
-            <img src="/photos/21.jpeg" alt="Travelling together" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame">
+                <img src="/photos/21.jpeg" alt="Travelling together" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 22</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">Hand in hand, heart to heart, now and in Jannah.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -908,8 +1201,18 @@
     <section class="photo-section" data-memory="23">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame contain">
-            <img src="/photos/22.jpeg" alt="Instagram chat &mdash; promise" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame contain">
+                <img src="/photos/22.jpeg" alt="Instagram chat &mdash; promise" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 23</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">I trust you with all my heart. Thank you for choosing me.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -924,8 +1227,18 @@
     <section class="photo-section" data-memory="24">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame contain">
-            <img src="/photos/23.jpeg" alt="Birthday gift messages" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame contain">
+                <img src="/photos/23.jpeg" alt="Birthday gift messages" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 24</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">You are the greatest gift Allah has ever blessed me with.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -940,8 +1253,18 @@
     <section class="photo-section" data-memory="25">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame contain">
-            <img src="/photos/24.jpeg" alt="Sweet Tamil chat" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame contain">
+                <img src="/photos/24.jpeg" alt="Sweet Tamil chat" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 25</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">It was love at first sight, and it will be love for eternity.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -956,8 +1279,18 @@
     <section class="photo-section" data-memory="26">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame portrait">
-            <img src="/photos/25.jpeg" alt="Safeha as a child" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame portrait">
+                <img src="/photos/25.jpeg" alt="Safeha as a child" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 26</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">I wish I could have known you back then, to protect you even sooner.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -972,8 +1305,18 @@
     <section class="photo-section" data-memory="27">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame portrait">
-            <img src="/photos/26.jpeg" alt="Moon phases" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame portrait">
+                <img src="/photos/26.jpeg" alt="Moon phases" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 27</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">Separated by miles, but united under the same beautiful sky.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -988,8 +1331,18 @@
     <section class="photo-section" data-memory="28">
       <div class="story-inner">
         <div class="glass-card">
-          <div class="photo-frame portrait">
-            <img src="/photos/27.jpeg" alt="Hands held together" loading="lazy">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="photo-frame portrait">
+                <img src="/photos/27.jpeg" alt="Hands held together" loading="lazy">
+              </div>
+              <div class="polaroid-caption">Memory 28</div>
+            </div>
+            <div class="card-back">
+              <h3 class="love-note-title">To my Pondati</h3>
+              <p class="love-note-content">I will never let go of your hand, my beautiful Safeha.</p>
+              <div class="love-note-heart">&#9829;</div>
+            </div>
           </div>
         </div>
         <div class="caption-block">
@@ -1367,6 +1720,16 @@
       window.addEventListener('click', autoPlayOnInteraction);
       window.addEventListener('scroll', autoPlayOnInteraction, { passive: true });
       window.addEventListener('touchstart', autoPlayOnInteraction, { passive: true });
+    })();
+
+    /* ?? Polaroid Card Tap to Flip (Mobile & Desktop) ?? */
+    (function initCardFlip() {
+      document.querySelectorAll('.glass-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('a') || e.target.closest('button')) return;
+          card.classList.toggle('flipped');
+        });
+      });
     })();
   </script>
 </body>
