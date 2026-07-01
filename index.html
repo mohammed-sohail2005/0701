@@ -561,6 +561,83 @@
       .music-player { bottom: 1rem; left: 1rem; }
       .music-btn { width: 44px; height: 44px; font-size: 0.95rem; }
     }
+
+    /* Love Proposal Question Box */
+    .love-question-box {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px dashed rgba(248, 180, 212, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      position: relative;
+    }
+    .question-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-style: italic;
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+    }
+    .question-buttons {
+      display: flex;
+      gap: 1.5rem;
+      position: relative;
+      min-height: 60px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    .question-btn {
+      font-family: 'Outfit', sans-serif;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      font-weight: 500;
+      border: 1px solid var(--glass-border);
+      border-radius: 2rem;
+      cursor: pointer;
+      box-shadow: var(--glass-shadow);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .yes-btn {
+      background: linear-gradient(135deg, var(--magenta), #ff6eb4);
+      color: #fff;
+      border: none;
+      z-index: 10;
+    }
+    .yes-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 20px rgba(224, 86, 160, 0.6), var(--glass-shadow);
+    }
+    .no-btn {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: var(--text-muted);
+      z-index: 10;
+    }
+    .proposal-response {
+      margin-top: 1rem;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.2rem;
+      color: var(--blush);
+      text-shadow: 0 0 12px rgba(248, 180, 212, 0.7);
+      animation: heartBeatPulse 1.2s infinite;
+      display: none;
+    }
+    .proposal-response.show {
+      display: block !important;
+      animation: heartBeatPulse 1.2s infinite, fadeIn 0.8s ease-out;
+    }
+    @keyframes heartBeatPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -1361,17 +1438,27 @@
     <div class="closing-glass">
       <h2>Happy Birthday, Safeha</h2>
       <p class="letter">
-        My dearest Safeha &mdash; you are the most beautiful chapter Allah wrote into my life.
-        Alhamdulillah for every smile, every note, every late-night walk, and every
-        moment you've shared with me. You make ordinary days extraordinary and
-        hard days bearable. I wrote this little story because twenty-eight photos
-        still aren't enough to show how much you mean to me.<br><br>
-        On your special day, I pray Allah blesses your new year of life with health,
-        happiness, and barakah. I choose you &mdash; today, tomorrow, and every day after.
-        Pondati, I love you dii. Forever yours, InshaAllah.
+        Dearest Safeha &mdash; the moment that I saw you first, it felt like something which made my mind and body a little bit nervous, and something which told me to talk to you... Even though our first chat was an accident, I feel it was a plan from Allah to make us love each other.
+        <br><br>
+        We faced a lot of problems in our school and early college days—having so many misunderstandings and so many arguments—but still, our bond never grew weak. Even during that one year we decided not to talk to each other for our future's sake, that period only made our relationship stronger and more mature.
+        <br><br>
+        And now... I want you in my life to help me make the correct decisions and share my emotions.
       </p>
       <p class="signature">&mdash; Sohail &#9829;</p>
-      <div class="closing-hearts">&#9829; &#9829; &#9829;</div>
+      
+      <!-- Love Proposal Question Box -->
+      <div class="love-question-box">
+        <p class="question-text">Will you be by my side... till the end? 🥺</p>
+        <div class="question-buttons">
+          <button class="question-btn yes-btn" id="proposal-yes">Yes, forever! ❤️</button>
+          <button class="question-btn no-btn" id="proposal-no">No 💔</button>
+        </div>
+        <div class="proposal-response" id="proposal-response">
+          Alhamdulillah! Forever and always, my Pondati. 💖💍
+        </div>
+      </div>
+
+      <div class="closing-hearts" style="margin-top: 2rem;">&#9829; &#9829; &#9829;</div>
     </div>
   </footer>
 
@@ -1729,6 +1816,50 @@
           if (e.target.closest('a') || e.target.closest('button')) return;
           card.classList.toggle('flipped');
         });
+      });
+    })();
+
+    /* ?? Love Proposal Question Interaction ?? */
+    (function initProposal() {
+      const yesBtn = document.getElementById('proposal-yes');
+      const noBtn = document.getElementById('proposal-no');
+      const response = document.getElementById('proposal-response');
+
+      if (!yesBtn || !noBtn || !response) return;
+
+      function moveNoButton() {
+        const container = noBtn.parentElement;
+        const containerRect = container.getBoundingClientRect();
+        const btnRect = noBtn.getBoundingClientRect();
+
+        const maxX = containerRect.width - btnRect.width;
+        const maxY = 120; // vertical offset limit
+
+        const randomX = Math.random() * maxX;
+        const randomY = (Math.random() - 0.5) * maxY;
+
+        noBtn.style.position = 'absolute';
+        noBtn.style.left = randomX + 'px';
+        noBtn.style.top = randomY + 'px';
+      }
+
+      noBtn.addEventListener('mouseenter', moveNoButton);
+      noBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        moveNoButton();
+      });
+
+      yesBtn.addEventListener('click', () => {
+        response.classList.add('show');
+        noBtn.style.display = 'none';
+        yesBtn.style.transform = 'scale(1.1)';
+        yesBtn.disabled = true;
+
+        // Restart romantic confetti
+        if (typeof startConfetti === 'function') {
+          confettiRunning = false;
+          startConfetti();
+        }
       });
     })();
   </script>
