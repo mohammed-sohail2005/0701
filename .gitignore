@@ -1,0 +1,7 @@
+# Original WhatsApp uploads (site uses numbered copies in photos/)
+WhatsApp Image*.jpeg
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini

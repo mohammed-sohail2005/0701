@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, Safeha &#9829;</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blush: #f8b4d4;
+      --lavender: #c4a8e8;
+      --magenta: #e056a0;
+      --deep-purple: #2d1b4e;
+      --mid-purple: #4a2c6e;
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --text-light: #fce8f3;
+      --text-muted: rgba(252, 232, 243, 0.75);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(160deg, #1a0a2e 0%, #2d1b4e 35%, #3d2060 65%, #1f1035 100%);
+      color: var(--text-light);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ?? Scroll progress heart ?? */
+    .progress-heart {
+      position: fixed;
+      right: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1000;
+      width: 28px;
+      height: 28px;
+      opacity: 0.85;
+    }
+    .progress-heart svg { width: 100%; height: 100%; filter: drop-shadow(0 0 6px rgba(224, 86, 160, 0.6)); }
+    .progress-heart .fill {
+      transition: clip-path 0.15s ease-out;
+      clip-path: inset(100% 0 0 0);
+    }
+    @media (max-width: 600px) {
+      .progress-heart { right: 0.75rem; width: 22px; height: 22px; }
+    }
+
+    /* ?? Floating background blobs & hearts ?? */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.45;
+      animation: blobFloat 12s ease-in-out infinite alternate;
+    }
+    .blob-1 { width: 420px; height: 420px; background: var(--magenta); top: -10%; left: -8%; }
+    .blob-2 { width: 350px; height: 350px; background: var(--lavender); bottom: 10%; right: -5%; animation-delay: -4s; }
+    .blob-3 { width: 280px; height: 280px; background: var(--blush); top: 45%; left: 30%; animation-delay: -7s; opacity: 0.3; }
+
+    @keyframes blobFloat {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(30px, -40px) scale(1.08); }
+    }
+
+    .floating-heart {
+      position: absolute;
+      font-size: 1rem;
+      opacity: 0;
+      animation: heartDrift linear infinite;
+      color: var(--blush);
+      text-shadow: 0 0 8px rgba(248, 180, 212, 0.6);
+    }
+    @keyframes heartDrift {
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.5; }
+      90%  { opacity: 0.35; }
+      100% { transform: translateY(-10vh) rotate(25deg); opacity: 0; }
+    }
+
+    /* ?? Hero ?? */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 1.5rem;
+    }
+    .hero-glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 2rem;
+      padding: 3rem 2.5rem;
+      box-shadow: var(--glass-shadow);
+      max-width: 680px;
+      animation: heroFadeIn 1.4s ease-out both;
+    }
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero .eyebrow {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      color: var(--blush);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(3.5rem, 12vw, 6.5rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--blush), var(--lavender), var(--magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+    .hero .subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 3vw, 1.35rem);
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 2rem;
+    }
+    .scroll-hint {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--blush);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .scroll-hint .arrow { font-size: 1.4rem; }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(8px); }
+    }
+
+    /* ?? Photo story sections ?? */
+    .story {
+      position: relative;
+      z-index: 1;
+    }
+    .photo-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 1.5rem;
+    }
+    .photo-section:nth-child(even) .story-inner { flex-direction: row-reverse; }
+
+    .story-inner {
+      display: flex;
+      align-items: center;
+      gap: clamp(1.5rem, 4vw, 3.5rem);
+      max-width: 1100px;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .glass-card {
+      position: relative;
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border);
+      border-radius: 1.5rem;
+      padding: 0.75rem;
+      box-shadow: var(--glass-shadow);
+      flex: 1 1 340px;
+      max-width: 520px;
+      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+                  box-shadow 0.5s ease,
+                  border-color 0.5s ease;
+      transform-style: preserve-3d;
+      opacity: 0;
+      transform: translateY(60px) scale(0.96);
+    }
+    .glass-card.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1),
+                  transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .glass-card:hover {
+      transform: translateY(-6px) scale(1.02) rotateX(2deg) rotateY(-2deg);
+      box-shadow: 0 16px 48px rgba(224, 86, 160, 0.25), var(--glass-shadow);
+      border-color: rgba(248, 180, 212, 0.45);
+    }
+    .glass-card.visible:hover {
+      transform: translateY(-6px) scale(1.02) rotateX(2deg) rotateY(-2deg);
+    }
+
+    .photo-frame {
+      border-radius: 1.1rem;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .glass-card:hover .photo-frame img { transform: scale(1.06); }
+
+    .photo-frame.portrait { aspect-ratio: 3 / 4; }
+    .photo-frame.square   { aspect-ratio: 1 / 1; }
+
+    /* Chat screenshots & tall photos &mdash; show full image */
+    .photo-frame.contain {
+      aspect-ratio: 9 / 16;
+      max-height: min(72vh, 640px);
+      background: rgba(0, 0, 0, 0.25);
+    }
+    .photo-frame.contain img {
+      object-fit: contain;
+    }
+
+    /* Fix sideways photos (rotate 90? clockwise) */
+    .photo-frame.rotate-cw {
+      aspect-ratio: 3 / 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .photo-frame.rotate-cw img {
+      transform: rotate(-90deg);
+      width: auto;
+      height: 135%;
+      max-width: none;
+      object-fit: cover;
+    }
+    .glass-card:hover .photo-frame.rotate-cw img {
+      transform: rotate(-90deg) scale(1.06);
+    }
+
+    .caption-block {
+      flex: 1 1 260px;
+      max-width: 400px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s ease 0.2s, transform 0.9s ease 0.2s;
+    }
+    .caption-block.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .memory-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      color: var(--magenta);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+    .caption-block h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 1.85rem);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--blush);
+    }
+    .caption-block p {
+      font-weight: 300;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+    }
+    .islamic-line {
+      display: block;
+      margin-top: 0.85rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(196, 168, 232, 0.2);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--lavender);
+    }
+    .arabic-phrase {
+      font-size: 1.15rem;
+      letter-spacing: 0.02em;
+      display: block;
+      margin-bottom: 0.2rem;
+      color: var(--blush);
+    }
+
+    /* ?? Closing ?? */
+    .closing {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1.5rem 6rem;
+    }
+    .closing-glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid var(--glass-border);
+      border-radius: 2rem;
+      padding: clamp(2.5rem, 6vw, 4rem) clamp(2rem, 5vw, 3.5rem);
+      box-shadow: var(--glass-shadow), 0 0 80px rgba(224, 86, 160, 0.15);
+      max-width: 720px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .closing-glass.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .closing h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2.8rem, 10vw, 5rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--blush), var(--magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    .closing .letter {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      line-height: 1.85;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .closing .signature {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: var(--lavender);
+    }
+    .closing-hearts {
+      margin-top: 2rem;
+      font-size: 1.6rem;
+      letter-spacing: 0.5rem;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50%      { opacity: 1; transform: scale(1.08); }
+    }
+
+    /* ?? Confetti canvas ?? */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    @media (max-width: 768px) {
+      .photo-section:nth-child(even) .story-inner { flex-direction: column; }
+      .story-inner { flex-direction: column; text-align: center; }
+      .caption-block { max-width: 100%; }
+      .hero-glass { padding: 2.5rem 1.75rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll progress heart -->
+  <div class="progress-heart" aria-hidden="true">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path fill="rgba(255,255,255,0.15)" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      <path class="fill" fill="url(#heartGrad)" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      <defs>
+        <linearGradient id="heartGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f8b4d4"/>
+          <stop offset="100%" stop-color="#e056a0"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Animated background -->
+  <div class="bg-layer" id="bg-layer">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-glass">
+      <p class="eyebrow">Bismillah ir-Rahman ir-Raheem</p>
+      <h1>Safeha</h1>
+      <p class="subtitle">
+        Every chapter of us &mdash; every laugh, every quiet glance, every little note &mdash;
+        led to this day by the will of Allah. Happy Birthday, my love.
+        Scroll through the memories He blessed us with.
+      </p>
+      <div class="scroll-hint">
+        <span>Scroll to begin</span>
+        <span class="arrow">&darr;</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Photo story -->
+  <main class="story" id="story">
+    <section class="photo-section" data-memory="1">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame contain">
+            <img src="./photos/28.jpeg" alt="Safeha first handwritten letter" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 01</p>
+          <h2>Your first letter to me</h2>
+          <p>11th January 2023 &mdash; the first time you ever wrote a letter to someone. You called me Papa, poured your heart onto paper, and signed it as my Pondati. I've treasured every word since that day.</p>
+          <span class="islamic-line">Alhamdulillahi rabbil alameen &mdash; Allah gave me your very first letter, written with a heart full of love.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="2">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame rotate-cw">
+            <img src="./photos/10.jpeg" alt="Happy moment" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 02</p>
+          <h2>Happiness looks like you</h2>
+          <p>They say a picture is worth a thousand words &mdash; but this one only needs three: I love you.</p>
+          <span class="islamic-line">MashaAllah &mdash; Allah made you the most beautiful blessing in my life.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="3">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame portrait">
+            <img src="./photos/8.jpeg" alt="Night walk together" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 03</p>
+          <h2>Under the stars</h2>
+          <p>A quiet night walk, the park lights glowing gold &mdash; just you, me, and the whole sky above us.</p>
+          <span class="islamic-line">SubhanAllah &mdash; the same sky that holds the stars holds our story, written by Ar-Rahman.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="4">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame">
+            <img src="./photos/9.jpeg" alt="Smiling together" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 04</p>
+          <h2>That smile</h2>
+          <p>Your smile is the reason I believe in beautiful things. I'd cross any distance just to see it again.</p>
+          <span class="islamic-line">The Prophet &mdash; said a smile is charity &mdash; and yours, Pondati, is the greatest sadaqah I receive.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="5">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame square">
+            <img src="./photos/5.jpeg" alt="Couple in the park" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 05</p>
+          <h2>Arms around you</h2>
+          <p>A sunny day in the park, your smile, my hand on your shoulder &mdash; this is where I feel most at home.</p>
+          <span class="islamic-line">Your hijab, your modesty, your grace &mdash; MashaAllah, you carry yourself like the queen you are.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="6">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame">
+            <img src="./photos/11.jpeg" alt="Another beautiful memory" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 06</p>
+          <h2>Chapter eleven</h2>
+          <p>Every photo is a page in our story &mdash; and I never want this book to end.</p>
+          <span class="islamic-line">InshaAllah &mdash; Allah writes many more beautiful chapters for us together.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="7">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame">
+            <img src="./photos/13.jpeg" alt="Sweet memory" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 07</p>
+          <h2>Unfiltered joy</h2>
+          <p>No filters, no pretending &mdash; just real laughter and the kind of love that doesn't need explaining.</p>
+          <span class="islamic-line">Halal love, pure hearts, clean intentions &mdash; Alhamdulillah for a bond that pleases Allah.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="8">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame">
+            <img src="./photos/14.jpeg" alt="Candid moment" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 08</p>
+          <h2>Caught in the moment</h2>
+          <p>The best memories aren't planned &mdash; they're stolen glances and spontaneous smiles like this one.</p>
+          <span class="islamic-line">Every unplanned moment was already written in our qadr &mdash; Allah knew before we did.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="9">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame">
+            <img src="./photos/6.jpeg" alt="Together outdoors" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 09</p>
+          <h2>Side by side</h2>
+          <p>Every adventure is better with you beside me. You turn ordinary days into something I'll never forget.</p>
+          <span class="islamic-line">"He created for you spouses from among yourselves&hellip; that you may find tranquillity in them." &mdash; Quran 30:21</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="10">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame portrait">
+            <img src="./photos/1.jpeg" alt="Love note written on arm" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 10</p>
+          <h2>Written on my heart</h2>
+          <p>Some love is too big for words &mdash; so I wrote it on my skin instead. Pondati, I love you dii. Always.</p>
+          <span class="islamic-line">Bismillah ir-Rahman ir-Raheem &mdash; every love I feel for you begins with His name and stays within what pleases Him.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="11">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame portrait">
+            <img src="./photos/3.jpeg" alt="A sweet moment" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 11</p>
+          <h2>Little moments</h2>
+          <p>Not every memory needs a grand stage. Sometimes the smallest snapshots hold the biggest feelings.</p>
+          <span class="islamic-line">Alhamdulillah for the small blessings &mdash; a glance, a laugh, a quiet second with you is enough.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="12">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame">
+            <img src="./photos/2.jpeg" alt="Names written together" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 12</p>
+          <h2>Our names, side by side</h2>
+          <p>Mohammed Sohail &amp; Safeha &mdash; scribbled on paper like the universe already knew we belonged together.</p>
+          <span class="islamic-line">Allah wrote our names together in our naseeb long before we ever met &mdash; Alhamdulillah for His plan.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="13">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame portrait">
+            <img src="./photos/4.jpeg" alt="Safeha and Sohail with a heart" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 13</p>
+          <h2>Safeha &mdash; Sohail</h2>
+          <p>A folded note, a hand-drawn heart, two names on either side &mdash; that's us in one perfect frame.</p>
+          <span class="islamic-line">A halal love, kept with respect and barakah &mdash; may Allah always protect what we share.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="14">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame">
+            <img src="./photos/7.jpeg" alt="A cherished moment" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 14</p>
+          <h2>Just us</h2>
+          <p>In a world full of noise, you are my calm. My favourite place is wherever you are.</p>
+          <span class="islamic-line">You are my sakinah &mdash; the peace Allah describes between two hearts meant for each other.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="15">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame portrait">
+            <img src="./photos/12.jpeg" alt="Adventure together" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 15</p>
+          <h2>Our adventures</h2>
+          <p>From quiet corners to open roads &mdash; every step with you feels like the right direction.</p>
+          <span class="islamic-line">Rabbana atina fid-dunya hasanah &mdash; InshaAllah, may every path we walk together be blessed and guided by Allah.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="16">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame">
+            <img src="./photos/15.jpeg" alt="Street selfie May 2026" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 16</p>
+          <h2>May 6th, 2026</h2>
+          <p>A golden evening on the street, auto-rickshaws behind us, and the widest smiles on our faces. Perfect.</p>
+          <span class="islamic-line">Alhamdulillahi rabbil 'alamin &mdash; I thank Allah for that golden evening and your beautiful smile.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="17">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame">
+            <img src="./photos/16.jpeg" alt="Together always" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 17</p>
+          <h2>Closer every day</h2>
+          <p>With every memory we make, I fall a little more. You are my today and all of my tomorrows.</p>
+          <span class="islamic-line">InshaAllah &mdash; Allah keeps us close in this life and unites us in Jannah.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="18">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame">
+            <img src="./photos/17.jpeg" alt="Shared laughter" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 18</p>
+          <h2>Laughing with you</h2>
+          <p>Your laugh is my favourite sound in the entire world. I hope I get to hear it for the rest of my life.</p>
+          <span class="islamic-line">Barakallahu feeki &mdash; may Allah bless your laughter and every joy you bring.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="19">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame">
+            <img src="./photos/18.jpeg" alt="Beautiful together" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 19</p>
+          <h2>My favourite view</h2>
+          <p>People travel the world for sunsets &mdash; I just look at you and I've already seen the most beautiful thing.</p>
+          <span class="islamic-line">MashaAllah &mdash; Allah fashioned you with His own hands and placed His beauty in your eyes and smile.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="20">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame">
+            <img src="./photos/19.jpeg" alt="On the road together" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 20</p>
+          <h2>On the road with you</h2>
+          <p>Buses, trains, long rides &mdash; as long as you're next to me, every journey feels like coming home.</p>
+          <span class="islamic-line">"Glory to Him who has subjected this to us" &mdash; SubhanAllah for every safe journey we share together.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="21">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame">
+            <img src="./photos/20.jpeg" alt="Another treasured moment" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 21</p>
+          <h2>More to come</h2>
+          <p>Every memory we collect is another reason I'm grateful for you. Our story keeps growing.</p>
+          <span class="islamic-line">Alhamdulillah &mdash; shukr to Allah for every chapter He has already written for us.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="22">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame">
+            <img src="./photos/21.jpeg" alt="Travelling together" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 22</p>
+          <h2>Always together</h2>
+          <p>Side by side on every ride, every road, every chapter &mdash; my Safeha, my love, my forever.</p>
+          <span class="islamic-line">InshaAllah &mdash; side by side in dunya and together in Jannatul Firdaus.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="23">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame contain">
+            <img src="./photos/22.jpeg" alt="Instagram chat &mdash; promise" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 23</p>
+          <h2>Your promise</h2>
+          <p>When I asked if you'd ever leave &mdash; you said no, and you promised. That one word still means everything to me.</p>
+          <span class="islamic-line">A promise kept with amanah &mdash; Allah is our witness, and He loves those who keep their word.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="24">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame contain">
+            <img src="./photos/23.jpeg" alt="Birthday gift messages" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 24</p>
+          <h2>Better than any gift</h2>
+          <p>You said your words were my birthday gift &mdash; and honestly, they're better than a hundred presents. I love you, baby.</p>
+          <span class="islamic-line">Your words carry barakah &mdash; Jazakallahu khairan for every sweet message you've ever sent me.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="25">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame contain">
+            <img src="./photos/24.jpeg" alt="Sweet Tamil chat" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 25</p>
+          <h2>How you stole my heart</h2>
+          <p>You asked how I won you over so sweetly &mdash; the truth is, it was always you. I just couldn't stop thinking about you.</p>
+          <span class="islamic-line">Allah placed love for you in my heart &mdash; a feeling pure, halal, and written before we even knew.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="26">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame portrait">
+            <img src="./photos/25.jpeg" alt="Safeha as a child" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 26</p>
+          <h2>Little you</h2>
+          <p>Even as a tiny girl with those big eyes and that bright smile &mdash; you were already the most beautiful soul. Lucky me.</p>
+          <span class="islamic-line">MashaAllah &mdash; Allah knew your beautiful soul long before I ever met you. Alhamdulillah for His timing.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="27">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame portrait">
+            <img src="./photos/26.jpeg" alt="Moon phases" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 27</p>
+          <h2>Under the same moon</h2>
+          <p>Different phases, same sky &mdash; no matter the distance, we always look up at the same moon. That's us.</p>
+          <span class="islamic-line">The same hilal that marks our Islamic months &mdash; a sign from Allah that we are always connected.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" data-memory="28">
+      <div class="story-inner">
+        <div class="glass-card">
+          <div class="photo-frame portrait">
+            <img src="./photos/27.jpeg" alt="Hands held together" loading="lazy">
+          </div>
+        </div>
+        <div class="caption-block">
+          <p class="memory-number">Memory 28</p>
+          <h2>Held in my hands</h2>
+          <p>Your hand in mine &mdash; simple, warm, and everything I need. Here's to holding on forever, Safeha.</p>
+          <span class="islamic-line">Rabbana hab lana min azwajina &mdash; InshaAllah, one day our hands will be joined in nikah, halal, blessed, and forever.</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Closing -->
+  <footer class="closing" id="closing">
+    <div class="closing-glass">
+      <h2>Happy Birthday, Safeha</h2>
+      <p class="letter">
+        My dearest Safeha &mdash; you are the most beautiful chapter Allah wrote into my life.
+        Alhamdulillah for every smile, every note, every late-night walk, and every
+        moment you've shared with me. You make ordinary days extraordinary and
+        hard days bearable. I wrote this little story because twenty-eight photos
+        still aren't enough to show how much you mean to me.<br><br>
+        On your special day, I pray Allah blesses your new year of life with health,
+        happiness, and barakah. I choose you &mdash; today, tomorrow, and every day after.
+        Pondati, I love you dii. Forever yours, InshaAllah.
+      </p>
+      <p class="signature">&mdash; Sohail &#9829;</p>
+      <div class="closing-hearts">&#9829; &#9829; &#9829;</div>
+    </div>
+  </footer>
+
+  <script>
+    /* ?? Floating hearts in background ?? */
+    (function initHearts() {
+      const layer = document.getElementById('bg-layer');
+      const hearts = ['\u2665', '\u2661', '\u2764', '\u2726'];
+      for (let i = 0; i < 18; i++) {
+        const el = document.createElement('span');
+        el.className = 'floating-heart';
+        el.textContent = hearts[i % hearts.length];
+        el.style.left = Math.random() * 100 + '%';
+        el.style.animationDuration = (8 + Math.random() * 14) + 's';
+        el.style.animationDelay = (Math.random() * 12) + 's';
+        el.style.fontSize = (0.6 + Math.random() * 1.2) + 'rem';
+        layer.appendChild(el);
+      }
+    })();
+
+    /* ?? Scroll progress heart fill ?? */
+    (function initProgress() {
+      const fill = document.querySelector('.progress-heart .fill');
+      function update() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 &mdash; scrollTop / docHeight : 0;
+        fill.style.clipPath = `inset(${100 - pct * 100}% 0 0 0)`;
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    })();
+
+    /* ?? Intersection Observer: reveal on scroll ?? */
+    (function initReveal() {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const section = entry.target;
+          const card = section.querySelector('.glass-card');
+          const caption = section.querySelector('.caption-block');
+          if (card) card.classList.add('visible');
+          if (caption) caption.classList.add('visible');
+        });
+      }, { threshold: 0.25, rootMargin: '0px 0px -8% 0px' });
+
+      document.querySelectorAll('.photo-section').forEach(s => observer.observe(s));
+
+      const closingObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.querySelector('.closing-glass').classList.add('visible');
+            if (!prefersReduced) startConfetti();
+          }
+        });
+      }, { threshold: 0.3 });
+      closingObs.observe(document.getElementById('closing'));
+    })();
+
+    /* ?? Confetti / petals on closing reveal ?? */
+    let confettiRunning = false;
+    function startConfetti() {
+      if (confettiRunning) return;
+      confettiRunning = true;
+
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      let w, h, particles = [];
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      const colors = ['#f8b4d4', '#e056a0', '#c4a8e8', '#fce8f3', '#ff6eb4'];
+      const shapes = ['heart', 'circle', 'petal'];
+
+      for (let i = 0; i < 120; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h - h,
+          size: 4 + Math.random() * 8,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speedY: 1 + Math.random() * 3,
+          speedX: -1 + Math.random() * 2,
+          rot: Math.random() * 360,
+          rotSpeed: -3 + Math.random() * 6,
+          shape: shapes[Math.floor(Math.random() * shapes.length)],
+          opacity: 0.5 + Math.random() * 0.5
+        });
+      }
+
+      let frame = 0;
+      const maxFrames = 400;
+
+      function drawHeart(x, y, size) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.beginPath();
+        const s = size / 12;
+        ctx.moveTo(0, s * 3);
+        ctx.bezierCurveTo(0, 0, -s * 5, 0, -s * 5, s * 3);
+        ctx.bezierCurveTo(-s * 5, s * 6, 0, s * 9, 0, s * 12);
+        ctx.bezierCurveTo(0, s * 9, s * 5, s * 6, s * 5, s * 3);
+        ctx.bezierCurveTo(s * 5, 0, 0, 0, 0, s * 3);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function animate() {
+        if (frame > maxFrames) {
+          ctx.clearRect(0, 0, w, h);
+          return;
+        }
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => {
+          p.y += p.speedY;
+          p.x += p.speedX;
+          p.rot += p.rotSpeed;
+          if (p.y > h + 20) { p.y = -20; p.x = Math.random() * w; }
+
+          ctx.save();
+          ctx.globalAlpha = p.opacity * (1 - frame / maxFrames * 0.6);
+          ctx.fillStyle = p.color;
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot * Math.PI / 180);
+
+          if (p.shape === 'heart') {
+            drawHeart(0, 0, p.size);
+          } else if (p.shape === 'petal') {
+            ctx.beginPath();
+            ctx.ellipse(0, 0, p.size * 0.4, p.size, 0, 0, Math.PI * 2);
+            ctx.fill();
+          } else {
+            ctx.beginPath();
+            ctx.arc(0, 0, p.size * 0.5, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.restore();
+        });
+        frame++;
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    /* ?? Subtle parallax tilt on glass cards (desktop) ?? */
+    if (window.matchMedia('(hover: hover)').matches) {
+      document.querySelectorAll('.glass-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          if (card.classList.contains('visible')) {
+            card.style.transform = `translateY(-6px) scale(1.02) rotateX(${-y * 6}deg) rotateY(${x * 6}deg)`;
+          }
+        });
+        card.addEventListener('mouseleave', () => {
+          if (card.classList.contains('visible')) {
+            card.style.transform = '';
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>
